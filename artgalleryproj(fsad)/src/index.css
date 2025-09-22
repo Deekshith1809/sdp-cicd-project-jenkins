@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Light theme variables */
+:root[data-theme="light"] {
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --heading-color: #1a1a2e;
+  --paragraph-color: #4a4a68;
+  --gradient-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95));
+  --card-bg: #ffffff;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --button-primary: #4361ee;
+  --button-hover: #3a56d4;
+  --accent-color: #4361ee;
+  --border-color: #e6e6e6;
+  --input-text: #333333;
+  --link-color: #3a56d4;
+  --nav-text: #333333;
+  --form-label: #333333;
+  --button-text: #333333;
+  --button-text-light: #333333;
+  --button-text-dark: #ffffff;
+}
+
+/* Dark theme variables */
+:root[data-theme="dark"] {
+  --background-color: #171717;
+  --text-color: #fafafa;
+  --heading-color: #fafafa;
+  --paragraph-color: #e6e6e6;
+  --gradient-overlay: linear-gradient(to bottom, rgba(23, 23, 23, 0.8), rgba(23, 23, 23, 0.95));
+  --card-bg: #1e1e24;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --button-primary: #4361ee;
+  --button-hover: #3a56d4;
+  --accent-color: #4361ee;
+  --border-color: #2a2a3a;
+  --input-text: #fafafa;
+  --link-color: #6d8dff;
+  --nav-text: #fafafa;
+  --form-label: #fafafa;
+  --button-text: #fafafa;
+  --button-text-light: #333333;
+  --button-text-dark: #fafafa;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Add some global styles for better contrast */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+  transition: color 0.3s ease;
+}
+
+p {
+  color: var(--paragraph-color);
+  transition: color 0.3s ease;
+}
+
+/* Add subtle gradient overlay for better text readability */
+.gradient-overlay {
+  background: var(--gradient-overlay);
+  transition: background 0.3s ease;
+}
+
+/* Form elements */
+input, textarea, select {
+  color: var(--input-text);
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+  transition: color 0.3s ease;
+}
+
+/* Labels */
+label {
+  color: var(--form-label);
+}
+
+/* Navigation text */
+nav a, .nav-link {
+  color: var(--nav-text);
+}
+
+/* Ensure text in cards is visible */
+.card, .card-body {
+  color: var(--text-color);
+}
+
+/* Button text */
+button, .btn {
+  color: var(--button-text-dark);
+}
+
+/* Fix for buttons with light backgrounds in light mode */
+:root[data-theme="light"] button.bg-white,
+:root[data-theme="light"] .btn.bg-white,
+:root[data-theme="light"] button.bg-transparent,
+:root[data-theme="light"] .btn.bg-transparent,
+:root[data-theme="light"] button.text-white,
+:root[data-theme="light"] .btn.text-white {
+  color: var(--button-text-light);
+}
+
+/* Fix for white text on light backgrounds */
+:root[data-theme="light"] .text-white {
+  color: var(--text-color);
+}
+
+/* Table text */
+table, th, td {
+  color: var(--text-color);
+}
+
+/* Success screen animations */
+@keyframes bg-fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes scale-bounce-in {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  80% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+@keyframes glow-pulse-once {
+  0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.0); opacity: 1; }
+  30% { box-shadow: 0 0 0 12px rgba(34,197,94,0.25); }
+  60% { box-shadow: 0 0 0 24px rgba(34,197,94,0.12); }
+  100% { box-shadow: 0 0 0 36px rgba(34,197,94,0.0); opacity: 0; }
+}
+
+@keyframes slide-up-fade {
+  0% { transform: translateY(16px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Utility classes for the animations */
+.animate-bg-fade-in { animation: bg-fade-in 600ms ease-out both; }
+.animate-bounce-in { animation: scale-bounce-in 650ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-glow-pulse-once { animation: glow-pulse-once 1000ms ease-out 200ms 1 both; }
+.animate-slide-up { animation: slide-up-fade 600ms ease-out both; }
+.animate-fade-in { animation: fade-in 600ms ease-out both; }
+
+/* Helpful delay utilities */
+.delay-200 { animation-delay: 200ms !important; }
+.delay-300 { animation-delay: 300ms !important; }
+.delay-400 { animation-delay: 400ms !important; }
+.delay-500 { animation-delay: 500ms !important; }
+.delay-600 { animation-delay: 600ms !important; }
+
+/* Button hover effects */
+.btn-pop {
+  transition: transform 200ms ease, box-shadow 300ms ease, border-color 200ms ease, background-color 200ms ease;
+}
+.btn-pop:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(59,130,246,0.15);
+}
+.btn-glow:hover {
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.35);
+}
