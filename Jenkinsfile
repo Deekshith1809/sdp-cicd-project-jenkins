@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven_3.9.11'   // Name you configured in "Global Tool Configuration"
+        jdk 'JDK21'            // (Optional) If you configured JDK in Jenkins
+    }
+
     stages {
         // ===== CHECKOUT CODE =====
         stage('Checkout') {
@@ -36,8 +41,9 @@ pipeline {
         stage('Build Backend') {
             steps {
                 dir('SpringBootProjectBackend') {
-                    // Use Jenkins-managed Maven if configured, or system PATH
-                    bat 'mvn clean package'
+                    withMaven(maven: 'Maven_3.9.11') {
+                        bat 'mvn clean package'
+                    }
                 }
             }
         }
