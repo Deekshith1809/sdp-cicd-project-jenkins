@@ -2,7 +2,14 @@ pipeline {
     agent any
 
     stages {
+        // ===== CHECKOUT CODE =====
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
 
+        // ===== BUILD FRONTEND =====
         stage('Build Frontend') {
             steps {
                 dir('artgalleryproj(fsad)') {
@@ -12,6 +19,7 @@ pipeline {
             }
         }
 
+        // ===== DEPLOY FRONTEND TO TOMCAT =====
         stage('Deploy Frontend to Tomcat') {
             steps {
                 bat '''
@@ -24,24 +32,24 @@ pipeline {
             }
         }
 
+        // ===== BUILD BACKEND =====
         stage('Build Backend') {
             steps {
                 dir('SpringBootProjectBackend') {
+                    // Use Jenkins-managed Maven if configured, or system PATH
                     bat 'mvn clean package'
                 }
             }
         }
 
+        // ===== DEPLOY BACKEND TO TOMCAT =====
         stage('Deploy Backend to Tomcat') {
             steps {
                 bat '''
                 if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\artgallery-backend.war" (
                     del /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\artgallery-backend.war"
                 )
-                if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\artgallery-backend" (
-                    rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\artgallery-backend"
-                )
-                copy "SpringBootProjectBackend\\target\\*.war" "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\artgallery-backend.war"
+                copy SpringBootProjectBackend\\target\\artgallery-backend.war "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\webapps\\"
                 '''
             }
         }
@@ -49,10 +57,10 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment Successful!'
+            echo 'Pipeline succeeded!'
         }
         failure {
-            echo 'Pipeline Failed.'
+            echo 'Pipeline failed!'
         }
     }
 }
