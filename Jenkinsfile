@@ -1,14 +1,8 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven 3.9.11'   // Name of Maven in Jenkins Global Tool Configuration
-        jdk 'JDK 21'           // Optional: if you configured Java in Jenkins
-    }
-
     stages {
 
-        // ===== FRONTEND BUILD =====
         stage('Build Frontend') {
             steps {
                 dir('artgalleryproj(fsad)') {
@@ -18,7 +12,6 @@ pipeline {
             }
         }
 
-        // ===== FRONTEND DEPLOY =====
         stage('Deploy Frontend to Tomcat') {
             steps {
                 bat '''
@@ -31,7 +24,6 @@ pipeline {
             }
         }
 
-        // ===== BACKEND BUILD =====
         stage('Build Backend') {
             steps {
                 dir('SpringBootProjectBackend') {
@@ -40,7 +32,6 @@ pipeline {
             }
         }
 
-        // ===== BACKEND DEPLOY =====
         stage('Deploy Backend to Tomcat') {
             steps {
                 bat '''
@@ -54,7 +45,6 @@ pipeline {
                 '''
             }
         }
-
     }
 
     post {
